@@ -3,15 +3,10 @@ package com.mobitant.android_seminar_24th
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import java.text.SimpleDateFormat
-import java.util.*
 
 class LoginActivity : AppCompatActivity() {
-
-    val REQUEST_CODE_LOGIN_ACTIVITY = 1000
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -33,21 +28,12 @@ class LoginActivity : AppCompatActivity() {
             if(isValid(login_u_id, login_u_pw)) postLoginResponse(login_u_id, login_u_pw)
         }
         txtLoginSignup.setOnClickListener{
-            val simpleDateFormat = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val s_time = simpleDateFormat.format(Date())
-
-            startActivityForResult<SignupActivity>(REQUEST_CODE_LOGIN_ACTIVITY, "start_time" to s_time)
+            startActivity<SignupActivity>()
         }
 
         val id = intent.getIntExtra("id" ,1)
         toast("id: ${id}")
 
-        txtLoginSignup.setOnClickListener{
-            val simpleDateFormat = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val s_time = simpleDateFormat.format(Date())
-
-            startActivityForResult<SignupActivity>(REQUEST_CODE_LOGIN_ACTIVITY, "start_time" to s_time)
-        }
 
     }
     fun isValid(u_id: String, u_pw: String): Boolean{
