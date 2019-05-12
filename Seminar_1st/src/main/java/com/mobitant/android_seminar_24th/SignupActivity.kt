@@ -1,14 +1,10 @@
 package com.mobitant.android_seminar_24th
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_signup.*
 import org.jetbrains.anko.toast
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SignupActivity : AppCompatActivity() {
 
@@ -34,22 +30,13 @@ class SignupActivity : AppCompatActivity() {
             val signup_u_pw: String = edtSignupPW.text.toString()
 
             if (isVaild(signup_u_id, signup_u_name, signup_u_pw)) {
-                postSignupResponse(signup_u_id, signup_u_pw, signup_u_name)
+                finish()
             }
         }
 
     }
 
-    private fun postSignupResponse(u_id: String, u_pw: String, signup_u_name: String) {
-        val simpleDateFormat = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val e_time = simpleDateFormat.format(Date())
 
-        val intent=Intent()
-        intent.putExtra("end_time",e_time)
-        setResult(Activity.RESULT_OK,intent)
-
-        finish()
-    }
 
     private fun isVaild(u_id: String, u_pw: String, u_name: String): Boolean {
         if (u_id == "") edtSignupID.requestFocus()
@@ -57,7 +44,5 @@ class SignupActivity : AppCompatActivity() {
         else if (u_pw == "") edtSignupPW.requestFocus()
         else return true
         return false
-
-
     }
 }
