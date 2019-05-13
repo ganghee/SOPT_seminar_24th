@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                tools:context=".Activity.CommentActivity"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+
+    <LinearLayout android:layout_height="match_parent"
+                  android:layout_width="match_parent"
+                  android:orientation="vertical">
+
+        <include layout="@layout/toolbar_comment"
+                 android:id="@+id/toolbar_comment"/>
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/rv_comment_list"
+                android:layout_weight="1">
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:id="@+id/btn_comment_write"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimaryDarkYellow"
+                android:text="댓글쓰기"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
