@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CalenderActivity"
+        android:orientation="vertical">
+
+    <include
+            android:id="@+id/toolbar_calender"
+            layout="@layout/toolbar_calender"/>
+
+    <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minDate="05/01/2019"
+            tools:targetApi="honeycomb">
+    </CalendarView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+
+        <TextView
+                android:text="5월 1일"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+        />
+        <TextView
+                android:text="개교기념일"
+                android:textSize="20sp"
+                android:textColor="#f00"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        tools:context=".MainActivity">
+
+
+    <RelativeLayout
+            android:paddingHorizontal="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+
+        <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#3a3a3a"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center_horizontal"
+                    android:text="SEOUL"
+            />
+            <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#3a3a3a"
+                    android:lineSpacingExtra="9sp"
+                    android:gravity="center_horizontal"
+                    android:text="TECH"
+            />
+        </LinearLayout>
+        <ImageView
+                android:id="@+id/notice"
+                android:layout_width="19.7dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icn_ios_notice"
+                android:layout_marginRight="50dp"/>
+        <ImageView
+                android:layout_width="25.6dp"
+                android:layout_height="17.7dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_main_drawer"
+                android:layout_marginRight="5dp"
+        />
+    </RelativeLayout>
+</RelativeLayout>
