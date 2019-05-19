@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="write_comment_hint">여기를 눌러서 글을 작성할 수 있습니다. 기다릴개에서 당신의 동물의 이야기를 들려주세요:) 이미지는 최대 4장까지 첨부 가능합니다.</string>
+</resources>

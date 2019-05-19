@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.CommentWriteActivity"
+>
+    <include
+            android:id="@+id/toolbar_write_comment"
+            layout="@layout/toolbar_write_comment"/>
+    <LinearLayout
+            android:id="@+id/ll_comment_write_title"
+            android:layout_below="@+id/toolbar_write_comment"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/background_underline_gray"
+    >
+        <TextView
+                android:text="제목"
+                android:textSize="20sp"
+                android:textColor="#444"
+                android:layout_margin="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+        <EditText
+                android:id="@+id/edit_comment_write_title"
+                android:background="@null"
+                android:textSize="20sp"
+                android:hint="제목을 입력하세요."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+    <EditText
+            android:id="@+id/txt_comment_write_comment"
+            android:layout_below="@+id/ll_comment_write_title"
+            android:layout_above="@+id/img_comment_write_camera_container"
+            android:padding="10dp"
+            android:background="@null"
+            android:textSize="13dp"
+            android:hint="@string/write_comment_hint"
+            android:gravity="left|top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    />
+    <RelativeLayout
+            android:id="@+id/img_comment_write_camera_container"
+            android:layout_above="@id/img_bottom_write_comment_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F0F0F0"
+            android:padding="7dp">
+        <ImageView
+                android:id="@+id/img_comment_write_roll"
+                android:src="@drawable/writing_plus_btn"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+    </RelativeLayout>
+    <include
+        android:id="@+id/img_bottom_write_comment_camera"
+        layout="@layout/bottom_write_commit"
+/>
+</RelativeLayout>
