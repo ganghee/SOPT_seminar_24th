@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApplicationController :Application(){
 
     //통신하고자 하는 API 서버의 기본 주소
-    private val baseURL ="http://hyunjkuz.ml:2424/"
+    private val baseURL ="http://hyunjkluz.ml:2424/"
     lateinit var networkService: NetworkService
 
     companion object{
