@@ -30,7 +30,7 @@ class WebtoonActivity : AppCompatActivity() {
 
         txt_toolbar_webtoon_title.text = title
 
-        //댓글 달기 화면으로 이동
+        //댓글 리스트 화면으로 이동
         btn_toolbar_webtoon_comment.setOnClickListener {
             startActivity<CommentActivity>()
         }

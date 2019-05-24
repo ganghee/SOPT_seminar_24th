@@ -44,6 +44,7 @@ class NewProductMainFragment : Fragment() {
         productOverviewRecyclerViewAdapter = ProductOverviewRecyclerViewAdapter(context!!, dataList)
         rv_product_overview_new.adapter = productOverviewRecyclerViewAdapter
         rv_product_overview_new.layoutManager = GridLayoutManager(context!!, 3)
+        getMainProductListResponse()
 
         //수평 스크롤 형태
         //rv_product_overview_all.layoutManager = LinearLayoutManager(context)
@@ -56,8 +57,7 @@ class NewProductMainFragment : Fragment() {
     }
     private fun getMainProductListResponse() {
         val getMainProductListResponse = networkService.getMainProductListResponse(
-            "application/x-www-form-urlencoded", 3
-        )
+            "application/json", 2)
         getMainProductListResponse.enqueue(object : Callback<GetMainProductListResponse> {
             override fun onFailure(call: Call<GetMainProductListResponse>, t: Throwable) {
                 Log.e("NewMainProduct Fail", t.toString())

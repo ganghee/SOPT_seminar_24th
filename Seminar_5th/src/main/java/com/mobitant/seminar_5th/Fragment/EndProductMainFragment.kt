@@ -57,8 +57,7 @@ class EndProductMainFragment : Fragment() {
     }
     private fun getMainProductListResponse() {
         val getMainProductListResponse = networkService.getMainProductListResponse(
-            "application/x-www-form-urlencoded", 2
-        )
+            "application/json", 3)
         getMainProductListResponse.enqueue(object : Callback<GetMainProductListResponse> {
             override fun onFailure(call: Call<GetMainProductListResponse>, t: Throwable) {
                 Log.e("EndMainProduct Fail", t.toString())

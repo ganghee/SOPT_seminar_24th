@@ -9,6 +9,7 @@ import com.mobitant.seminar_5th.Data.CommentData
 import com.mobitant.seminar_5th.R
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.toolbar_comment.*
+import org.jetbrains.anko.startActivity
 
 class CommentActivity : AppCompatActivity() {
 
@@ -20,6 +21,13 @@ class CommentActivity : AppCompatActivity() {
 
         configureTitleBar()
         configureRecyclerView()
+
+        btn_write_comment.setOnClickListener {
+            startActivity<CommentWriteActivity>(
+                "idx" to 4,
+                "episode_id" to 9
+            )
+        }
     }
 
     //뒤로가기 이미지를 누르면 화면이 없어짐
@@ -50,9 +58,9 @@ class CommentActivity : AppCompatActivity() {
 
         //세로로 배열
         commentRecyclerViewAdapter = CommentRecyclerViewAdapter(this, dataList)
-        rv_comment_list.adapter = commentRecyclerViewAdapter
-        rv_comment_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv_comment.adapter = commentRecyclerViewAdapter
+        rv_comment.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         //경계선 넣기
-        rv_comment_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        rv_comment.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 }

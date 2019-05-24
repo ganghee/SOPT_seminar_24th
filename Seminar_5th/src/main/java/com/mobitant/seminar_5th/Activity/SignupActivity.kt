@@ -69,7 +69,7 @@ class SignupActivity : AppCompatActivity() {
         //gsonObject는 body로 들어간다.
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
         val postSignupResponse: Call<PostSignupResponse> =
-            networkService.postSignupResponse("application/x-www-form-urlencoded", gsonObject)
+            networkService.postSignupResponse("application/json", gsonObject)
         postSignupResponse.enqueue(object : Callback<PostSignupResponse> {
             override fun onFailure(call: Call<PostSignupResponse>, t: Throwable) {
                 Log.e("Login failed", t.toString())

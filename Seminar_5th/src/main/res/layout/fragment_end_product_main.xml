@@ -5,7 +5,7 @@
              android:layout_height="match_parent"
              tools:context=".Fragment.EndProductMainFragment">
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_item_product_overview_all"
+            android:id="@+id/rv_product_overview_end"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>

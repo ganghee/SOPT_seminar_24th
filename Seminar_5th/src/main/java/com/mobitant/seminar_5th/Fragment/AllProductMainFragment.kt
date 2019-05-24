@@ -62,7 +62,7 @@ class AllProductMainFragment : Fragment() {
     //flag지정하기
     private fun getMainProductListResponse() {
         val getMainProductListResponse = networkService.getMainProductListResponse(
-            "application/x-www-form-urlencoded", 1)
+            "application/json", 1)
 
         getMainProductListResponse.enqueue(object : Callback<GetMainProductListResponse> {
             override fun onFailure(call: Call<GetMainProductListResponse>, t: Throwable) {

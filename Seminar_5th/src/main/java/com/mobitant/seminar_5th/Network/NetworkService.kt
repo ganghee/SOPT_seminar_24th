@@ -33,7 +33,7 @@ interface NetworkService {
     @GET("/api/webtoons/main/{flag}")
     fun getMainProductListResponse(
         @Header("Content-Type") content_type: String,
-        @Query("flag") flag: Int
+        @Path("flag") flag: Int
     ) :Call<GetMainProductListResponse>
 
     //사진, 음성, 동영상 같은 파일을 전달할 때는 @Multipart라는 방식으로 통신한다.
