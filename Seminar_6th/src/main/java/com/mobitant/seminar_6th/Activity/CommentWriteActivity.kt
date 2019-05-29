@@ -51,7 +51,7 @@ class CommentWriteActivity : AppCompatActivity() {
     //
     private fun configureToolbar() {
         product_id = intent.getIntExtra("idx",-1)
-        episode_id = intent.getIntExtra("episode_id",-1)
+        episode_id = intent.getIntExtra("chapter",-1)
         if(product_id == -1 || episode_id == -1) { finish() }
 
 

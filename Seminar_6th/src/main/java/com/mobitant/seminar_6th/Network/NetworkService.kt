@@ -1,6 +1,7 @@
 package com.mobitant.seminar_6th.Network
 
 import com.google.gson.JsonObject
+import com.mobitant.seminar_6th.Network.Get.GetEpisodeListResponse
 import com.mobitant.seminar_6th.Network.Get.GetMainProductListResponse
 import com.mobitant.seminar_6th.Network.Get.GetMainTopImageResponse
 import com.mobitant.seminar_6th.Network.Post.PostCommentResponse
@@ -56,8 +57,16 @@ interface NetworkService {
         @Part cmtlmg: MultipartBody.Part
     ): Call<PostCommentResponse>
 
+    //메인화면의 상단 이미지
     @GET("/api/webtoons/main/img")
     fun getMainTopImageResponse(
         @Header("Content-type") content_type: String
     ): Call<GetMainTopImageResponse>
+
+    //에피소드 리스트 ProductActivity의 화면
+    @GET("/api/webtoons/episodes/list/{wtldx}")
+    fun getEpisodeListResponse(
+        @Header("Content-type") content_type: String,
+        @Path("wtldx") wtldx:Int
+    ): Call <GetEpisodeListResponse>
 }

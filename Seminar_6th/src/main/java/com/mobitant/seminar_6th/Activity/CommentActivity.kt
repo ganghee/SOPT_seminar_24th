@@ -25,7 +25,7 @@ class CommentActivity : AppCompatActivity() {
         btn_write_comment.setOnClickListener {
             startActivity<CommentWriteActivity>(
                 "idx" to 4,
-                "episode_id" to 9
+                "chapter" to 9
             )
         }
     }

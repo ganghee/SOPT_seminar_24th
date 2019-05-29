@@ -3,11 +3,18 @@ package com.mobitant.seminar_6th.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.mobitant.seminar_6th.Adapter.EpisodeOverviewRecyclerViewAdapter
 import com.mobitant.seminar_6th.Data.EpisodeOverviewData
+import com.mobitant.seminar_6th.Network.ApplicationController
+import com.mobitant.seminar_6th.Network.Get.GetEpisodeListResponse
+import com.mobitant.seminar_6th.Network.NetworkService
 import com.mobitant.seminar_6th.R
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.toolbar_product.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class ProductActivity : AppCompatActivity() {
@@ -15,6 +22,9 @@ class ProductActivity : AppCompatActivity() {
     lateinit var episodeOverviewRecyclerViewAdapter: EpisodeOverviewRecyclerViewAdapter
     lateinit var title: String
     var product_id: Int = -1
+    val networkService: NetworkService by lazy{
+        ApplicationController.instance.networkService
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,30 +39,40 @@ class ProductActivity : AppCompatActivity() {
     //배열에 에피소드 데이터 넣기
     private fun configureRecyclerView() {
         var dataList: ArrayList<EpisodeOverviewData> = ArrayList()
-        dataList.add(
-            EpisodeOverviewData(
-                product_id, 0, "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-                "에피소드 1", 1, "2019-04-01"))
-        dataList.add(
-            EpisodeOverviewData(
-                product_id, 1, "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-                "에피소드 2", 10, "2019-04-02"))
-        dataList.add(
-            EpisodeOverviewData(
-                product_id, 2, "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-                "에피소드 3", 100, "2019-04-03"))
-        dataList.add(
-            EpisodeOverviewData(
-                product_id, 3, "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-                "에피소드 4", 1000, "2019-04-04"))
-        dataList.add(
-            EpisodeOverviewData(
-                product_id, 4, "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-                "에피소드 5", 10000, "2019-04-05"))
 
         episodeOverviewRecyclerViewAdapter = EpisodeOverviewRecyclerViewAdapter(this, dataList)
         rv_episode_overview_list.adapter = episodeOverviewRecyclerViewAdapter
         rv_episode_overview_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        getEpisodeListResponse()
+
+    }
+
+    private fun getEpisodeListResponse() {
+        val getEpisodeListResponse = networkService.getEpisodeListResponse(
+            "application/json", product_id)
+
+        getEpisodeListResponse.enqueue(object : Callback<GetEpisodeListResponse> {
+            override fun onFailure(call: Call<GetEpisodeListResponse>, t: Throwable) {
+                Log.e("EpisodeList Fail", t.toString())
+            }
+
+            //응답이 되었을 때 productOverviewRecyclerViewAdapter에 데이터를 연결 시켜 주어야 하므로
+            //이때 연결 시키는 데이터는 서버에 있는 데이터이다.
+            //notifyDataSetChanged()를 통해 Adapter에게 표시할 데이터가 실시간으로 변경 되었다는 사실을 알려준다.
+            override fun onResponse(
+                call: Call<GetEpisodeListResponse>,
+                response: Response<GetEpisodeListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        val tmp= response.body()!!.data!!
+                        episodeOverviewRecyclerViewAdapter.dataList = tmp.list
+                        episodeOverviewRecyclerViewAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
     }
 
     //mainActivity의 title과 id 데이터를 가져와 titleBar에 보여주기

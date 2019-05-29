@@ -14,19 +14,20 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import java.util.*
 
-class EpisodeOverviewRecyclerViewAdapter (val ctx: Context, val dataList: ArrayList<EpisodeOverviewData>): RecyclerView.Adapter<EpisodeOverviewRecyclerViewAdapter.Holder>(){
+class EpisodeOverviewRecyclerViewAdapter (val ctx: Context, var dataList: ArrayList<EpisodeOverviewData>): RecyclerView.Adapter<EpisodeOverviewRecyclerViewAdapter.Holder>(){
     override fun onBindViewHolder(holder: Holder, position: Int) {
+
         Glide.with(ctx)
-            .load(dataList[position].img_url)
+            .load(dataList[position].thumnail)
             .into(holder.img_thumbnail)
         holder.title.text = dataList[position].title
-        holder.description.text = "조회수 " + dataList[position].num_view.toString() + " " + dataList[position].publish_date
+        holder.description.text = "조회수 " + dataList[position].hits.toString()
         //에피소드 목록의 데이터가 웹툰 내용 화면으로 전달된다.
         holder.container.onClick {
             ctx.startActivity<WebtoonActivity>(
                 "title" to dataList[position].title,
-                "idx" to dataList[position].product_id,
-                "episode_id" to dataList[position].episode_id)
+                "idx" to dataList[position].idx,
+                "chapter" to dataList[position].chapter)
         }
     }
 

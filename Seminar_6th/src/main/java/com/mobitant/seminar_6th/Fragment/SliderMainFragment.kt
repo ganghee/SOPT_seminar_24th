@@ -42,7 +42,7 @@ class SliderMainFragment : Fragment() {
 
         getMainTopImageResponse.enqueue(object : Callback<GetMainTopImageResponse> {
             override fun onFailure(call: Call<GetMainTopImageResponse>, t: Throwable) {
-                Log.e("AllMainProduct Fail", t.toString())
+                Log.e("MainTopImage Fail", t.toString())
             }
 
             //응답이 되었을 때 productOverviewRecyclerViewAdapter에 데이터를 연결 시켜 주어야 하므로
@@ -64,7 +64,7 @@ class SliderMainFragment : Fragment() {
                         val img_url:String? = arguments!!.getString("background_url")
                         Log.d("!!!","############"+tmp)
                         Log.d("!!!","@@@@@@@@@@@@@@@"+arguments)
-                        //val img_url:String? = arguments!!.getString("background_url",tmp[0])
+                        //val thumnail:String? = arguments!!.getString("background_url",tmp[0])
                         //val color: Int = arguments!!.getInt("background_color")
                         //img_fragment_slider_main.setBackgroundColor(color)
                         Glide.with(this@SliderMainFragment)
