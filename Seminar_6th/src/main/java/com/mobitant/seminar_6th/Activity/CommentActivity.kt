@@ -2,18 +2,31 @@ package com.mobitant.seminar_6th.Activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.mobitant.seminar_6th.Adapter.CommentRecyclerViewAdapter
 import com.mobitant.seminar_6th.Data.CommentData
+import com.mobitant.seminar_6th.Network.ApplicationController
+import com.mobitant.seminar_6th.Network.Get.GetCommentReadResponse
+import com.mobitant.seminar_6th.Network.NetworkService
 import com.mobitant.seminar_6th.R
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.toolbar_comment.*
 import org.jetbrains.anko.startActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CommentActivity : AppCompatActivity() {
 
     lateinit var commentRecyclerViewAdapter: CommentRecyclerViewAdapter
+    var idx:Int = -1
+    var chapter: Int = -1
+    val networkService: NetworkService by lazy{
+        ApplicationController.instance.networkService
+    }
+    var cmtIdx : Int = -1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +35,19 @@ class CommentActivity : AppCompatActivity() {
         configureTitleBar()
         configureRecyclerView()
 
+
         btn_write_comment.setOnClickListener {
             startActivity<CommentWriteActivity>(
-                "idx" to 4,
-                "chapter" to 9
+                "idx" to idx,
+                "chapter" to chapter
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        configureRecyclerView()
+        getCommentReadResponse()
     }
 
     //뒤로가기 이미지를 누르면 화면이 없어짐
@@ -39,20 +59,6 @@ class CommentActivity : AppCompatActivity() {
     //댓글 데이터를 배열에 넣기
     private fun configureRecyclerView(){
         var dataList: ArrayList<CommentData> = ArrayList()
-        dataList.add(CommentData(0,0,0,
-            "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png", "솝러버",
-            "문어에 대한 내용이 아주 유익하네요. 추천드룡! 다들 꼭 보시길~^^", "19.03.25 23:21:38"))
-        dataList.add(CommentData(0,0,0,
-            "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png", "솝맘",
-            "타코야끼가 생각나는 웹툰이에요 :) 타코야끼 먹으면서 읽는 거 추천~!", "19.03.25 23:25:38"))
-        dataList.add(CommentData(0,0,0,
-            "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png", "조총무",
-            "심심할 때 할 게 없다면 이 웹툰을 읽어보세여!! _ 맑고 개끗한 조총무", "19.03.25 23:25:38"))
-        dataList.add(
-            CommentData(0,0,0,
-            "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png", "김스윗",
-            "감동적인 이야기 입니다,,, 아주 스윗한 ㅇ웹툰이네요ㅠㅋㅋㅋㅋㅋ", "19.03.25 23:25:38")
-        )
 
         txt_toolbar_comment_title.text = "댓글(" + dataList.size.toString() + ")"
 
@@ -61,6 +67,45 @@ class CommentActivity : AppCompatActivity() {
         rv_comment.adapter = commentRecyclerViewAdapter
         rv_comment.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         //경계선 넣기
-        rv_comment.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        //rv_comment.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        getCommentReadResponse()
+
+
+    }
+
+
+    private fun getCommentReadResponse() {
+
+        //intent에서 넘어온 정보는 onCreate에서 작성하면 디폴트 값이 저장된다.
+        //따라서 메소드를 따로 만든다음 그 안에 intent객체를 구현한다.
+        idx = intent.getIntExtra("idx", -1)
+        chapter = intent.getIntExtra("chapter", -1)
+        if(idx == -1 || chapter == -1) {finish()}
+
+        Log.d("@@@","@@@@@@  idx  @@@@@@@@"+idx+"######  chapter  ####"+chapter)
+        val getCommentReadResponse = networkService.getCommentReadResponse(
+            "application/json", idx)
+
+        getCommentReadResponse.enqueue(object : Callback<GetCommentReadResponse> {
+            override fun onFailure(call: Call<GetCommentReadResponse>, t: Throwable) {
+                Log.e("CommentRead Fail", t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<GetCommentReadResponse>,
+                response: Response<GetCommentReadResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        val tmp= response.body()!!.data!!
+                        commentRecyclerViewAdapter.dataList = tmp
+                        commentRecyclerViewAdapter.notifyDataSetChanged()
+                        txt_toolbar_comment_title.text = "댓글(" + tmp.size.toString() + ")"
+
+                    }
+                }
+            }
+        })
     }
 }

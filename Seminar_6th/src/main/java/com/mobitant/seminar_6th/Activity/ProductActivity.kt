@@ -57,9 +57,6 @@ class ProductActivity : AppCompatActivity() {
                 Log.e("EpisodeList Fail", t.toString())
             }
 
-            //응답이 되었을 때 productOverviewRecyclerViewAdapter에 데이터를 연결 시켜 주어야 하므로
-            //이때 연결 시키는 데이터는 서버에 있는 데이터이다.
-            //notifyDataSetChanged()를 통해 Adapter에게 표시할 데이터가 실시간으로 변경 되었다는 사실을 알려준다.
             override fun onResponse(
                 call: Call<GetEpisodeListResponse>,
                 response: Response<GetEpisodeListResponse>

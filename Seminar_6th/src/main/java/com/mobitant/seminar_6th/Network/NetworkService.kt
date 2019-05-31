@@ -1,12 +1,13 @@
 package com.mobitant.seminar_6th.Network
 
 import com.google.gson.JsonObject
-import com.mobitant.seminar_6th.Network.Get.GetEpisodeListResponse
-import com.mobitant.seminar_6th.Network.Get.GetMainProductListResponse
-import com.mobitant.seminar_6th.Network.Get.GetMainTopImageResponse
+import com.mobitant.seminar_6th.Network.Delete.DeleteMessageResponse
+import com.mobitant.seminar_6th.Network.Get.*
 import com.mobitant.seminar_6th.Network.Post.PostCommentResponse
 import com.mobitant.seminar_6th.Network.Post.PostLoginResponse
+import com.mobitant.seminar_6th.Network.Post.PostMessageResponse
 import com.mobitant.seminar_6th.Network.Post.PostSignupResponse
+import com.mobitant.seminar_6th.Network.Put.PutMessageResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -52,9 +53,9 @@ interface NetworkService {
         @Header("token") token: String,
         //@Header("Content_Type") content_type: String,
 
-        @Part("epldx") epldx: Int,
+        @Part("epIdx") epIdx: Int,
         @Part("content") content: RequestBody,
-        @Part cmtlmg: MultipartBody.Part
+        @Part cmtImg: MultipartBody.Part
     ): Call<PostCommentResponse>
 
     //메인화면의 상단 이미지
@@ -63,10 +64,75 @@ interface NetworkService {
         @Header("Content-type") content_type: String
     ): Call<GetMainTopImageResponse>
 
-    //에피소드 리스트 ProductActivity의 화면
+    //에피소드 리스트 ProductActivity
     @GET("/api/webtoons/episodes/list/{wtldx}")
     fun getEpisodeListResponse(
         @Header("Content-type") content_type: String,
         @Path("wtldx") wtldx:Int
     ): Call <GetEpisodeListResponse>
+
+    //웹툰 본문 내용 WebtoonActivity
+    @GET("/api/webtoons/episodes/{epIdx}")
+    fun getEpisodeContentResponse(
+        @Header("Content-type") content_type: String,
+        @Path("epIdx") epIdx:Int
+    ): Call <GetEpisodeContentResponse>
+
+    //댓글 리스트 보여주기
+    @GET("/api/webtoons/episodes/cmts/{epIdx}")
+    fun getCommentReadResponse(
+        @Header("Content-type") content_type: String,
+        @Path("epIdx") epIdx: Int
+    ): Call<GetCommentReadResponse>
+
+    //웹툰 등록
+    @Multipart
+    @POST("/api/webtoons")
+    fun postWebtoonResponse(
+        @Header("token") token: String,
+        @Part("title") title: RequestBody,
+        @Part wtThum: MultipartBody.Part
+    ): Call<PostMessageResponse>
+
+    //웹툰 삭제
+    @DELETE("/api/webtoons")
+    fun deleteWebtoonResponse(
+        @Header("token") token: String,
+        @Part("wtIdx") wtIdx: Int
+    ): Call<DeleteMessageResponse>
+
+    //에피소드 등록
+    @Multipart
+    @POST("/api/webtoons/episodes")
+    fun postEpisodeResponse(
+        @Header("token") token: String,
+        @Part("wtIdx") wtIdx: Int,
+        @Part("title") title: RequestBody,
+        @Part epImg: MultipartBody.Part
+    ): Call<PostMessageResponse>
+
+    //에피소드 삭제
+    @DELETE("/api/webtoons")
+    fun deleteEpisodeResponse(
+        @Header("token") token: String,
+        @Part("epIdx") epIdx: Int
+    ): Call<DeleteMessageResponse>
+
+    //댓글 수정
+    @Multipart
+    @PUT("/api/webtoons/episodes/cmts")
+    fun putCommentResponse(
+        @Header("token") token: String,
+        @Part("epIdx") epIdx: Int,
+        @Part("content") content: RequestBody,
+        @Part cmtImg: MultipartBody.Part
+    ): Call<PutMessageResponse>
+
+    //댓글 삭제
+    @Multipart
+    @DELETE( "/api/webtoons/episodes/cmts")
+    fun deleteCommentResponse(
+        @Header("token") token: String,
+        @Part("cmtIdx") cmtIdx: Int
+    ): Call<DeleteMessageResponse>
 }

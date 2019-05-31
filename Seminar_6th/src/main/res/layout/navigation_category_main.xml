@@ -12,7 +12,7 @@
         <TextView
                 android:text="인기"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="#484848"
+                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="@drawable/tab_selector"
                 android:textStyle="bold"/>
     </RelativeLayout>
     <RelativeLayout
@@ -24,7 +24,7 @@
         <TextView
                 android:text="신작"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="#484848"
+                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="@drawable/tab_selector"
                 android:textStyle="bold"/>
     </RelativeLayout>
     <RelativeLayout
@@ -36,7 +36,7 @@
         <TextView
                 android:text="완결"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="#484848"
+                android:layout_height="wrap_content" android:textSize="14dp" android:textColor="@drawable/tab_selector"
                 android:textStyle="bold"/>
     </RelativeLayout>
 </LinearLayout>

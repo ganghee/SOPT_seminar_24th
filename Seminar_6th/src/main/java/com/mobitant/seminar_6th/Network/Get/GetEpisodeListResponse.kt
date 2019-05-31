@@ -6,5 +6,5 @@ data class GetEpisodeListResponse (
     val status: Int,
     val success: Boolean,
     val message: String,
-    val data: EpisodeListData
+    val data: EpisodeListData?
 )

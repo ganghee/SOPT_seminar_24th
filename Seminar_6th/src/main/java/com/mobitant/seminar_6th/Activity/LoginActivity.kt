@@ -103,7 +103,6 @@ class LoginActivity : AppCompatActivity() {
         val postLoginResponse: Call<PostLoginResponse> =
             networkService.postLoginResponse("application/json", gsonObject)
 
-        Log.d("id","@@@@@@@@@@@@@@@@@@@@@  "+ gsonObject)
         postLoginResponse.enqueue(object : Callback<PostLoginResponse> {
             override fun onFailure(call: Call<PostLoginResponse>, t: Throwable) {
                 Log.e("login failed",t.toString())
@@ -111,8 +110,6 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
                 if(response.isSuccessful){
-                    Log.d("id","@@@@@@@@@@@@@@@@@@@@@  "+ response.body()!!.message)
-                    Log.d("@@","@@@@@@@@@@@@@@@@@@@@@@@@@@@      "+response.body()!!.status)
                     if(response.body()!!.status == 201){
                         //Request Login
                         SharedPreferenceController.setUserToken(applicationContext, response.body()!!.data!!)
@@ -120,7 +117,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
         })
     }
 }

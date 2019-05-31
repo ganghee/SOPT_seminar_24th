@@ -14,7 +14,8 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import java.util.*
 
-class EpisodeOverviewRecyclerViewAdapter (val ctx: Context, var dataList: ArrayList<EpisodeOverviewData>): RecyclerView.Adapter<EpisodeOverviewRecyclerViewAdapter.Holder>(){
+class EpisodeOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<EpisodeOverviewData>) :
+    RecyclerView.Adapter<EpisodeOverviewRecyclerViewAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         Glide.with(ctx)
@@ -27,12 +28,13 @@ class EpisodeOverviewRecyclerViewAdapter (val ctx: Context, var dataList: ArrayL
             ctx.startActivity<WebtoonActivity>(
                 "title" to dataList[position].title,
                 "idx" to dataList[position].idx,
-                "chapter" to dataList[position].chapter)
+                "chapter" to dataList[position].chapter
+            )
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
-        val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_episode_overview,viewGroup,false)
+        val view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_episode_overview, viewGroup, false)
         return Holder(view)
     }
 
@@ -40,7 +42,7 @@ class EpisodeOverviewRecyclerViewAdapter (val ctx: Context, var dataList: ArrayL
         return dataList.size
     }
 
-    inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var container = itemView.ll_rv_item_episode_overview_container
         var img_thumbnail = itemView.img_rv_item_episode_overview_thumbnail
         var title = itemView.txt_rv_item_episode_overview_title

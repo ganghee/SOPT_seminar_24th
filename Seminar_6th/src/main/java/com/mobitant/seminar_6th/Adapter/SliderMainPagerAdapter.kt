@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import com.mobitant.seminar_6th.Fragment.SliderMainFragment
 
 class SliderMainPagerAdapter(fm: FragmentManager?, val num_fragment: Int) : FragmentStatePagerAdapter(fm) {
+
+
+
     override fun getItem(p0: Int): Fragment? {
 
         //보여질 fragment들은 모두 같은 클래스 상속
@@ -14,7 +17,6 @@ class SliderMainPagerAdapter(fm: FragmentManager?, val num_fragment: Int) : Frag
 
         //한 개 bundle에 담길 데이터의 개수 지정
         var bundle = Bundle(1)
-
 
         //Fragment별 배경이미지 지정
         when (p0) {

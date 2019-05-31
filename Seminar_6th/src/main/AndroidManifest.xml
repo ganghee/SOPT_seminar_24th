@@ -29,6 +29,7 @@
         <activity android:name=".Activity.LoginActivity"/>
         <activity android:name=".Activity.SignupActivity"/>
         <activity android:name=".Activity.CommentWriteActivity"/>
+
     </application>
 
 </manifest>

@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:background="@drawable/background_underline_yellow">
 
     <LinearLayout
             android:layout_height="70dp"
@@ -15,6 +16,7 @@
         <ImageView
                 android:layout_height="match_parent"
                 android:layout_width="90dp"
+                android:scaleType="centerCrop"
                 android:id="@+id/img_rv_item_episode_overview_thumbnail"/>
 
         <LinearLayout

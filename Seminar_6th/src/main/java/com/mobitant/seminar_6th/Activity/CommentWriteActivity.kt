@@ -1,19 +1,23 @@
 package com.mobitant.seminar_6th.Activity
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.mobitant.seminar_6th.DB.SharedPreferenceController
 import com.mobitant.seminar_6th.Network.ApplicationController
 import com.mobitant.seminar_6th.Network.NetworkService
 import com.mobitant.seminar_6th.Network.Post.PostCommentResponse
-import com.mobitant.seminar_6th.R
 import kotlinx.android.synthetic.main.activity_write_comment.*
 import kotlinx.android.synthetic.main.toolbar_write_comment.*
 import okhttp3.MediaType
@@ -28,31 +32,76 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 
+
 class CommentWriteActivity : AppCompatActivity() {
 
     lateinit var selectedPicUri: Uri
 
-    val REQUEST_CODE_SELECT_IMAGE:Int = 1004
+    val REQUEST_CODE_SELECT_IMAGE: Int = 1004
+    val MY_PERMISSIONS_REQUEST_CAMERA = 1001
 
-    var product_id = -1
-    var episode_id = -1
 
-    val networkService : NetworkService by lazy{
+    var idx = -1
+    var chapter = -1
+
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_write_comment)
+        setContentView(com.mobitant.seminar_6th.R.layout.activity_write_comment)
 
+        val permissionCheck = ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE)
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+
+            Toast.makeText(this, "권한 승인이 필요합니다", Toast.LENGTH_LONG).show();
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    READ_EXTERNAL_STORAGE
+                )
+            ) {
+                Toast.makeText(this, "000부분 사용을 위해 카메라 권한이 필요합니다.", Toast.LENGTH_LONG).show()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                     arrayOf(READ_EXTERNAL_STORAGE),
+                    MY_PERMISSIONS_REQUEST_CAMERA
+                )
+                Toast.makeText(this, "000부분 사용을 위해 카메라 권한이 필요합니다.", Toast.LENGTH_LONG).show()
+
+            }
+        }
         configureToolbar()
     }
 
-    //
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_CAMERA -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+
+                    Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
+
+    }
+
+
     private fun configureToolbar() {
-        product_id = intent.getIntExtra("idx",-1)
-        episode_id = intent.getIntExtra("chapter",-1)
-        if(product_id == -1 || episode_id == -1) { finish() }
+        idx = intent.getIntExtra("idx", -1)
+        chapter = intent.getIntExtra("chapter", -1)
+        if (idx == -1 || chapter == -1) {
+            finish()
+        }
 
 
         //toolbar의 취소 버튼을 눌렀을 때 이벤트
@@ -82,9 +131,9 @@ class CommentWriteActivity : AppCompatActivity() {
         val token = SharedPreferenceController.getUserToken(this)
         val title = edit_comment_write_title.text.toString()
         val comment = txt_comment_write_comment.text.toString()
-        if (isValid(token,title,comment)){
-            val title_rb = RequestBody.create(MediaType.parse("text/plain"),title)
-            val comment_rb = RequestBody.create(MediaType.parse("text/plain"),comment)
+        if (isValid(token, title, comment)) {
+            val title_rb = RequestBody.create(MediaType.parse("text/plain"), title)
+            val comment_rb = RequestBody.create(MediaType.parse("text/plain"), comment)
 
             val options = BitmapFactory.Options()
             val inputStream: InputStream = contentResolver.openInputStream(selectedPicUri)
@@ -92,23 +141,27 @@ class CommentWriteActivity : AppCompatActivity() {
             val byteArrayOutputStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
 
-            val photoBody = RequestBody.create(MediaType.parse("image/jpg"),byteArrayOutputStream.toByteArray())
+            val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
             //위의 코드는 jpg(안드로이드로 사진 찍으면 기본 확장자) 이미지 파일 전송을 위한 코드입니다.
 
-            val picture_rb = MultipartBody.Part.createFormData("cmtImg", File(selectedPicUri.toString()).name,photoBody)
-            //위의 코드에서, 첫 번째 매개변수 "cmtlmg"는 꼭 서버 API에 명시된 이름으로(networkService @Part "cmtlmg")로 지정
+            val picture_rb =
+                MultipartBody.Part.createFormData("cmtImg", File(selectedPicUri.toString()).name, photoBody)
+            //위의 코드에서, 첫 번째 매개변수 "cmtImg"는 꼭 서버 API에 명시된 이름으로(networkService @Part "cmtImg")로 지정
 
-            val postCommentResponse = networkService.postCommentResponse(token,episode_id,comment_rb,picture_rb)
+            Log.d("@@@","@@@@  "+token+"   @@@@   "+chapter+"    @@@@    "+comment_rb+"    @@@@    "+picture_rb)
 
-            postCommentResponse.enqueue(object: Callback<PostCommentResponse> {
+
+            val postCommentResponse = networkService.postCommentResponse(token, idx, comment_rb, picture_rb)
+
+            postCommentResponse.enqueue(object : Callback<PostCommentResponse> {
                 override fun onFailure(call: Call<PostCommentResponse>, t: Throwable) {
-                    Log.e("write comment failed", t.toString())
+                    Log.e("write content failed", t.toString())
                 }
 
                 override fun onResponse(call: Call<PostCommentResponse>, response: Response<PostCommentResponse>) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         toast(response.body()!!.message)
-                        if(response.body()!!.status == 200) finish()
+                        if (response.body()!!.status == 200) finish()
                     }
                 }
             })
@@ -120,10 +173,11 @@ class CommentWriteActivity : AppCompatActivity() {
     //img_comment_write_roll 에 이미지를 넣는다
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_CODE_SELECT_IMAGE){
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
                 data?.let {
                     selectedPicUri = it.data
+                    Log.d("@@@", "@@@@@@@@@@@@@@@@@@@##@" + selectedPicUri)
                     Glide.with(this)
                         .load(selectedPicUri)
                         .thumbnail(0.1f)
@@ -134,10 +188,10 @@ class CommentWriteActivity : AppCompatActivity() {
     }
 
     //사용자 이름, 제목, 댓글 내용이 있는지 여부.
-    fun isValid(token: String, title: String,comment:String): Boolean{
-        if(token == "") toast("token 값이 없습니다.")
-        else if(title == "") edit_comment_write_title.requestFocus()
-        else if(comment == "") txt_comment_write_comment.requestFocus()
+    fun isValid(token: String, title: String, comment: String): Boolean {
+        if (token == "") toast("token 값이 없습니다.")
+        else if (title == "") edit_comment_write_title.requestFocus()
+        else if (comment == "") txt_comment_write_comment.requestFocus()
         else return true
         return false
     }

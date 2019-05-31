@@ -6,7 +6,8 @@
         android:theme="@style/MainTheme"
         app:contentInsetStart="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark">
 
 
     <LinearLayout
@@ -27,7 +28,7 @@
                 android:layout_weight="1"
                 android:id="@+id/txt_toolbar_webtoon_title"
                 android:textStyle="bold"
-                android:textColor="#484848"
+                android:textColor="#FFFFFF"
                 android:textSize="16dp"
                 android:paddingLeft="20dp"
                 android:text="title"/>

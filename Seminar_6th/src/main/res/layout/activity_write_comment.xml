@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/background_underline_gray"
+            android:background="@drawable/background_underline_yellow"
     >
         <TextView
                 android:text="제목"
@@ -29,17 +29,18 @@
         <EditText
                 android:id="@+id/edit_comment_write_title"
                 android:background="@null"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:hint="제목을 입력하세요."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
         />
     </LinearLayout>
     <EditText
             android:id="@+id/txt_comment_write_comment"
             android:layout_below="@+id/ll_comment_write_title"
             android:layout_above="@+id/img_comment_write_camera_container"
-            android:padding="10dp"
+            android:padding="20dp"
             android:background="@null"
             android:textSize="13dp"
             android:hint="@string/write_comment_hint"
@@ -57,8 +58,8 @@
         <ImageView
                 android:id="@+id/img_comment_write_roll"
                 android:src="@drawable/writing_plus_btn"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+                android:layout_height="100dp"
+                android:layout_width="100dp"/>
     </RelativeLayout>
     <include
         android:id="@+id/img_bottom_write_comment_camera"

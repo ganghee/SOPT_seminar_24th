@@ -13,13 +13,15 @@
             android:layout_height="match_parent">
         <include
                 android:id="@+id/toolbar_comment"
-                layout="@layout/toolbar_comment"/>
+                layout="@layout/toolbar_comment"
+        />
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_comment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+        >
         </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
     <Button
             android:id="@+id/btn_write_comment"
             android:text="댓글쓰기"
@@ -27,6 +29,6 @@
             android:backgroundTint="#F5CF45"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
     />
+    </LinearLayout>
 </RelativeLayout>
