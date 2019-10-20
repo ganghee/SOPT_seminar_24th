@@ -32,7 +32,7 @@
    - AndroidManifest.xml 파일에 `<activity>` 태그를 통해 선언 
    - 각 Activity마다 독립적인 생명주기가 존재 
   
-        ![image](https://user-images.githubusercontent.com/35513039/66895368-907fcd00-f02d-11e9-97fd-d4be89941167.png =250x)
+        <div style="width:50%">![image](https://user-images.githubusercontent.com/35513039/66895368-907fcd00-f02d-11e9-97fd-d4be89941167.png)</div>
 
    `onCreate` -> `onStart` -> `onResume` -> `onPause` -> `onStop` -> `onDestroy` \
    매소드 오버라이딩을 통해 Activity의 각 상태마다 사용자가 원하는 기능구현
