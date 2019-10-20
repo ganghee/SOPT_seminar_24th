@@ -1,6 +1,6 @@
 # ⭐️ SOPT 24th Android part 정리 ⭐️
 - [1차 세미나](#1차-세미나) - Activity, Intent, Layout, Event
-- [2차 세미나](#2차-세미나) - Fragment, FragmentPagerAdapter, 내부 DB
+- [2차 세미나](#-2차-세미나) - Fragment, FragmentPagerAdapter, 내부 DB
 - [3차 세미나](#3차-세미나) - Selector, Glide, RecyclerView
 - [4차 세미나](#4차-세미나) - HTTP, JSON, Retrofit
 - [5차 세미나](#5차-세미나) - 디자인 합동세미나
