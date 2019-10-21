@@ -185,9 +185,10 @@
     - 다른 Activity 위에 올라가 보여짐
     - Activity 실행 중에 추가, 제거가 가능.
     - Activity 는 하나 이상의 Fragment를 가짐.
-    - Activity와 유사하게 생명주기가 존재 \
+    - Activity와 유사하게 생명주기가 존재 
     <img src="https://user-images.githubusercontent.com/35513039/66895648-44815800-f02e-11e9-87d3-ceffa9614dcf.png" width="50%" height="50%" />
-    `onAttach()`-> `onCreate()` -> `onCreateView()` -> `onActivityCreated()` -> `onStart()` -> `onResume()` -> `onPause()` -> `onStop()` -> `onDestroyView()` -> `onDestroy()` -> `onDetach()`
+    
+     `onAttach()`-> `onCreate()` -> `onCreateView()` -> `onActivityCreated()` -> `onStart()` -> `onResume()` -> `onPause()` -> `onStop()` -> `onDestroyView()` -> `onDestroy()` -> `onDetach()`
     - Fragment는 상위 Activity의 생명주기에 직접적으로 영향을 받는다. 만일 상위 Activity가 소멸되면 그 위 모든 Fragment들도 소멸된다.
     - Fragment는 다른 Fragment위에도 올라갈 수 있다.
     - Activity간에는 Intent로 데이터를 전달하지만, Fragment간에는 Bundle로 데이터를 전달한다.
@@ -911,7 +912,7 @@
         - 개발자 별 Local History 관리를 지원하지 않는다.
         - 중앙 서버에 에러가 생기면 모든 것이 잘 못된다.
         - 서버가 다운될 경우, 서버가 다시 복구될 때 까지 다른 사람과의 협업 및 버전관리가 어려움
-        ![image](https://user-images.githubusercontent.com/35513039/67066161-348f8280-f1ac-11e9-9b6b-cbfd3dba2276.png)
+        <img src="https://user-images.githubusercontent.com/35513039/67066161-348f8280-f1ac-11e9-9b6b-cbfd3dba2276.png" width="50%" height="50%" />
 
     - **GIT**
         - 분산형 버전 관리 시스템
@@ -919,7 +920,7 @@
         - 개발자 별로 Local History를 관리
         - 중앙 서버에 에러가 생겨도 클라이언트로부터 역복제를 통해 복구 가능
         - Commit한 내용에 실수가 있더라도, 중앙 서버에 바로 반영되지 않기 때문에 걱정이 없다.
-        ![image](https://user-images.githubusercontent.com/35513039/67066191-57ba3200-f1ac-11e9-8194-ad3efa9a1df1.png)
+        <img src="https://user-images.githubusercontent.com/35513039/67066191-57ba3200-f1ac-11e9-8194-ad3efa9a1df1.png" width="50%" height="50%" />
 
 2. 🌙  **GitHub**
     - 버전관리 시스템인 Git을 이용하는 프로젝트들을 위한 원격저장소(서버)를 제공하는 서비스
