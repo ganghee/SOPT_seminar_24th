@@ -31,9 +31,8 @@
    - 하나의 앱에는 여러 개의 Activity가 존재 
    - AndroidManifest.xml 파일에 `<activity>` 태그를 통해 선언 
    - 각 Activity마다 독립적인 생명주기가 존재 
-  
-        ![image](https://user-images.githubusercontent.com/35513039/66895368-907fcd00-f02d-11e9-97fd-d4be89941167.png)
-
+ 
+      <img src="https://user-images.githubusercontent.com/35513039/66895368-907fcd00-f02d-11e9-97fd-d4be89941167.png" width="50%" height="50%" />
    `onCreate` -> `onStart` -> `onResume` -> `onPause` -> `onStop` -> `onDestroy` \
    매소드 오버라이딩을 통해 Activity의 각 상태마다 사용자가 원하는 기능구현
 
@@ -187,7 +186,7 @@
     - Activity 실행 중에 추가, 제거가 가능.
     - Activity 는 하나 이상의 Fragment를 가짐.
     - Activity와 유사하게 생명주기가 존재 \
-    ![image](https://user-images.githubusercontent.com/35513039/66895648-44815800-f02e-11e9-87d3-ceffa9614dcf.png)
+    <img src="https://user-images.githubusercontent.com/35513039/66895648-44815800-f02e-11e9-87d3-ceffa9614dcf.png" width="50%" height="50%" />
     `onAttach()`-> `onCreate()` -> `onCreateView()` -> `onActivityCreated()` -> `onStart()` -> `onResume()` -> `onPause()` -> `onStop()` -> `onDestroyView()` -> `onDestroy()` -> `onDetach()`
     - Fragment는 상위 Activity의 생명주기에 직접적으로 영향을 받는다. 만일 상위 Activity가 소멸되면 그 위 모든 Fragment들도 소멸된다.
     - Fragment는 다른 Fragment위에도 올라갈 수 있다.
@@ -449,8 +448,8 @@
 
 - __디자이너가 작업한 UI를 작성하기__
 
-    ![image](https://user-images.githubusercontent.com/35513039/67063352-7a931900-f1a1-11e9-9b9e-d9ffaab5a55f.png)
-
+    <img src="https://user-images.githubusercontent.com/35513039/67063352-7a931900-f1a1-11e9-9b9e-d9ffaab5a55f.png" width="50%" height="50%" />
+   
     MainActivity.kt
     ```
     class MainActivity : AppCompatActivity() {
